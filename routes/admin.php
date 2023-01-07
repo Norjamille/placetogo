@@ -35,3 +35,9 @@ Route::controller(\App\Http\Controllers\Admin\UserController::class)
         Route::get('/','index')->name('admin.users.index');
     });
 
+Route::controller(\App\Http\Controllers\Admin\PlanController::class)
+    ->prefix('admin/plans')
+    ->middleware(['auth','role:Admin'])
+    ->group(function(){
+        Route::get('/','index')->name('admin.plans.index');
+    });
