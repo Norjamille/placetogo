@@ -26,7 +26,13 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    if (auth()->user()->hasRole('Admin')) {
+        return redirect()->route('admin.dashboard.index');
+    }
+
+    if (auth()->user()->hasRole('User')) {
+        return redirect('/');
+    }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
